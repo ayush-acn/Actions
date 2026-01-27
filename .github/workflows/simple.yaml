@@ -25,3 +25,12 @@ jobs:
         run: 
           echo Add another action to build
           echo test, and deploy your project.
+
+  # Second Job
+  build: 
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test
+        run: |
+          echo This is from the second job
