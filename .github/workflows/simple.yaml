@@ -1,0 +1,27 @@
+name: simple workflow
+
+run-name: Run of the Simple workflow 
+
+on: 
+  # Workflow run triggers
+  push: 
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch: 
+
+jobs:
+  # First job
+  build: 
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # By defaults the runner will use Linux
+      - name: Run a one-line script
+        run: echo Hello GitHub Actions!!!
+
+      - name:  Run a multi-line script
+        run: 
+          echo Add another action to build
+          echo test, and deploy your project.
