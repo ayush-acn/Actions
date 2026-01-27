@@ -1,0 +1,28 @@
+name: L1 E3 workflow
+
+run-name: Run of the Simple workflow 
+
+on: 
+  # Workflow run triggers
+  push: 
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+  workflow_dispatch: 
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: Run a Node command
+        run: node -e "console.log('running the node')"
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Runs a shell comand
+        run: echo "Running the build job"
