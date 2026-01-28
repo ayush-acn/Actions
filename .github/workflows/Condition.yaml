@@ -1,0 +1,27 @@
+name: Condition
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    if: ${{true}}
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Experimenting
+        if: ${{true}}
+        run: |
+          echo $GREETING
+          echo $ADDITION
+          echo $EVENT
+
+        env:
+          GREETING: ${{'hello'}} world
+          ADDITION: ${{1==2}}
+          EVENT: ${{github.event_name}}
+
+  deploy:
+    if: ${{github.triggering_actor == 'ayush-acn'}}
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Runs if previous job succeed
+        run: echo "Everything is working as expected"
