@@ -5,7 +5,7 @@ on: workflow_dispatch
 jobs:
   build:
     if: ${{true}}
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Experimenting
         if: ${{true}}
@@ -21,7 +21,7 @@ jobs:
 
   deploy:
     if: ${{github.triggering_actor == 'ayush-acn'}}
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Runs if previous job succeed
         run: echo "Everything is working as expected"
