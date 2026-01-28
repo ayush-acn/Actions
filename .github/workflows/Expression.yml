@@ -1,0 +1,24 @@
+name: Expression in github Actions
+run-name: Expressions
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Experimenting
+        run: |
+          echo $GREETING
+          echo $ADDITION
+          echo $CONDITION
+          echo $EVENT
+          echo $(( 3 + $Number))
+        env: 
+          GREETING: ${{'hello'}} world
+          ADDITION: 2
+          CONDITION: ${{3==2}}
+          EVENT: ${{github.event_name}}
+          Number: ${{2}}
+          
