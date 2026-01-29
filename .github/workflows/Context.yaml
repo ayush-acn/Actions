@@ -1,0 +1,28 @@
+name: Context
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Experimenting
+        run: |
+          echo $EVENT_NAME
+          echo "HEAD REF" $HEAD_REF
+          echo "BASE REF" $BASE_REF
+          echo "REPO" $REPO
+        env:
+          EVENT_NAME: ${{github.event_name}}
+          HEAD_REF: ${{github.head_ref}}
+          BASE_REF: ${{github.base_ref}}
+          REPO: ${{github.repository}}
+
+  deploy:
+    needs: build
+    if: ${{github.actor == 'ayush-acn'}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Did prev job succed
+        run: |
+          echo "Result : ${{needs.build.result}}
