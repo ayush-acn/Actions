@@ -25,4 +25,4 @@ jobs:
     steps:
       - name: Did prev job succed
         run: |
-          echo "Result : ${{needs.build.result}}
+          echo "Result : ${{needs.build.result}}"
