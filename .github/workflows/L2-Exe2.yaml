@@ -1,21 +1,28 @@
-name: L2E2
-on: workflow_dispatch
+name: "Lesson 2 - Exercise 2"
+
+on:
+  workflow_dispatch:
+
 jobs:
   sync:
     runs-on: ubuntu-latest
     outputs:
-      state: ${{steps.sync_check.outputs.state}}
+      state: ${{ steps.sync_check.outputs.state }}
     steps:
-      - name: Determine weather to run the job test or halt the workflow run
+      - name: Determine whether to run the job `test` or halt the workflow run
         id: sync_check
         run: |
-          if [$((RANDOM%2)) -eq 0]; then 
-            echo "State Run" >> "$GITHUB_OUTPUT"
-            echo "Running the job 'test'..."
+          # The following will choose between `run` and `halt` randomly
+          # and set the output of the job to the chosen value
+          if [ $((RANDOM % 2)) -eq 0 ]; then
+            # set the output of the job to `run`
+            echo "state=run" >> "$GITHUB_OUTPUT"
+            echo "Running the job `test`..."
           else
-            echo "state-halt" >> "$GITHUB_OUTPUT"
+            # set the output of the job to `halt`
+            echo "state=halt" >> "$GITHUB_OUTPUT"
             echo "Skipping the job `test`..."
-          fi 
+          fi
 
   test:
     needs: sync
@@ -23,6 +30,6 @@ jobs:
     steps:
       - name: Run test suite
         run: |
-          echo "Running tests...."
-          sleep 5
+          echo "Running tests..."
+          sleep 5 # Simulate running tests
           exit 0
