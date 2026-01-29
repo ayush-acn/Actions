@@ -26,6 +26,7 @@ jobs:
 
   test:
     needs: sync
+    if: ${{needs.sync.outputs.state == 'run'}}
     runs-on: ubuntu-latest
     steps:
       - name: Run test suite
