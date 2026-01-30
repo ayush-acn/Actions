@@ -1,0 +1,15 @@
+name: Metrices
+
+on: workflow_dispatch
+
+jobs:
+  metrix_test:
+    strategy:
+      matrix:
+        version: ["0.0.1", "0.2.0", "3.0.0"]
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{matrix.os}}
+    steps:
+      - name: Run a multi-line script
+        run: |
+          echo Running on: ${{matrix.os}} version: ${{matrix.version}}
