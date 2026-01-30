@@ -1,0 +1,24 @@
+name: "Lesson 2 - Exercise 3"
+
+on:
+    workflow_dispatch:
+
+jobs:
+    test:
+      runs-on: ubuntu-latest
+      steps:
+        - name: Prevent reruns
+          run: |
+            # Exit if the run number is greater than the maximum number of attempts
+            if [ $RUN_ATTEMPT_NUMBER -gt $MAXIMUM_ATTEMPTS ]; then
+              echo "Exiting because the run number is greater than the maximum number of attempts"
+              exit 1
+            fi
+        - name: Run job
+          run: |
+            echo "Running job"
+            sleep 1
+      env:
+        MAXIMUM_ATTEMPTS: 2
+        RUN_ATTEMPT_NUMBER: ${{github.run_attempt}}
+        
