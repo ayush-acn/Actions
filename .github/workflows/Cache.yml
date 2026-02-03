@@ -1,0 +1,40 @@
+name: Caching
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: false
+          # Manually disabling the cache for the demo
+          
+      - name: Fetch go cache path
+        id: get-go-cache-paths
+        run: |
+          echo "go-mod=$(go env GOMODCACHE)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache module cahce
+        uses: actions/cache@v4
+        with:
+          path: ${{steps.get-go-cache-paths.outputs.go-mod}}
+          key: go-mod-${{hashFiles('**/go.sum')}}
+
+      - name: Insatalling Dependancies
+        run: make setup 
+
+      - name: Test
+        run: make test
+      
+
+
+          
