@@ -1,0 +1,23 @@
+name: GITHUB_TOKEN 
+
+on:
+  issues:
+    types: 
+      - opened
+
+permissions: 
+  issues: write
+
+jobs:
+  add-comment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Add Comment
+        run: gh issue comment "$NUMBER" --body "$BODY"
+        env:
+          GH_TOKEN: ${{github.token}}
+          GH_REPO: ${{github.repository}}
+          NUMBER: ${{github.event.issue.number}}
+          BODY: >
+            :sparkles: Thanks for you contribution! :sparkles:
+          
